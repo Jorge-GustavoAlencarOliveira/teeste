@@ -1,28 +1,19 @@
 import React from "react";
 import Link from "next/link";
+import styles from './index.module.css'
+import { FILM_GET } from "../api";
 
-const API_URL = 'https://api.themoviedb.org/3'
-function Home (){  
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(()=> {
-    async function loadFilms(){
-      const response = await fetch(`${API_URL}/movie/now_playing?api_key=7be8057e86b6ba317ae3a5358b11156c`);
-      const json = await response.json();
-      setData(json.results.slice(0, 10));
-      console.log(json.results)
-    }
-    loadFilms();
-  },[])
+function Home (){      
+  const {data} = FILM_GET();
   
   if(data){
     return (
-      <main>
+      <main className="container">
         {data.map(item => (
-          <div key={item.id}>
-            <h1>{item.title}</h1>
-            <img src={`https://image.tmdb.org/t/p/original/${item.backdrop_path}`} style={{width: '100%'}} alt={item.title}/>
-            <Link href={`/filme/${item.id}`}>Acessar</Link>
+          <div className={styles.content} key={item.id}>
+            <h1 className={styles.title}>{item.title}</h1>
+            <img className={styles.img} src={`https://image.tmdb.org/t/p/original/${item.poster_path}`} alt={item.title}/>
+            <Link className={styles.link} href={`/filme/${item.id}`}>Acessar</Link>
           </div>          
         ))}
       </main>
