@@ -14,7 +14,6 @@ const Favoritos = () => {
     setFilme(filmesSalvos);
     localStorage.setItem('@primeFlix', JSON.stringify(filmesSalvos))
   }
-  console.log(filme)
   return (
     <div className='container'>
       <h1>Meus Filmes</h1>
