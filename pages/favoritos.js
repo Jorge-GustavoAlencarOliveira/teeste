@@ -1,30 +1,33 @@
 import React from 'react'
 import Link from 'next/link';
+import styles from './Favoritos.module.css';
 
 const Favoritos = () => {
   const [filme, setFilme] = React.useState([]);
-
+ 
   React.useEffect(() => {
-    const filmesSalvos = localStorage.getItem('@primeFlix');
-    setFilme(JSON.parse(filmesSalvos) || []);  
+    const saveFilms = localStorage.getItem('@primeFlix');
+    setFilme(JSON.parse(saveFilms) || []);  
   },[])
   
   function excluirFilme(id){
-    let filmesSalvos = filme.filter(item => item.id !== id)
-    setFilme(filmesSalvos);
-    localStorage.setItem('@primeFlix', JSON.stringify(filmesSalvos))
+    let uptadeFilms = filme.filter(item => item.id !== id)
+    setFilme(uptadeFilms);
+    localStorage.setItem('@primeFlix', JSON.stringify(uptadeFilms))
   }
   return (
     <div className='container'>
-      <h1>Meus Filmes</h1>
-      {filme.length === 0 && <p>Voce não possui filme salvo</p>}
+      <h1 className={styles.title}>Meus Filmes</h1>
+      {filme.length === 0 && <p>Voce não possui filme salvo.</p>}
       {filme &&
         <ul>
           {filme.map(item => (
-            <li key={item.id}>
+            <li className={styles.content} key={item.id}>
               <span>{item.title}</span>
-              <Link href={`/filme/${item.id}`}> Ver detalhes</Link>   
-              <button onClick={() => excluirFilme(item.id)}>Excluir</button>
+              <div className={styles.button}>
+                <Link href={`/filme/${item.id}`}> Ver detalhes</Link>   
+                <button onClick={() => excluirFilme(item.id)}>Excluir</button>
+              </div>
             </li>
           ))}
         </ul>      

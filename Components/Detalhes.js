@@ -10,7 +10,6 @@ const Detalhes = ({id}) => {
       const response = await fetch(`${API_URL}/movie/${id}?api_key=7be8057e86b6ba317ae3a5358b11156c&language=pt-BR`);
       const json = await response.json();
       setData(json);
-      console.log(json)
     }
     loadFilms();
   },[id]);
@@ -18,7 +17,6 @@ const Detalhes = ({id}) => {
   function salvarFilme(){
     const minhaLista = localStorage.getItem('@primeFlix');
     let filmesSalvos = JSON.parse(minhaLista) || [];
-    console.log(filmesSalvos)
     const hasFilme = filmesSalvos.some(filme => filme.id === data.id);
     if (hasFilme){
       alert('Esse filme já está salvo');
